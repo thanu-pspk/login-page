@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body {
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            overflow: hidden; perspective: 1000px;
+        }
+        .container { width: 100%; max-width: 440px; padding: 20px; }
+        .card {
+            background: rgba(255, 255, 255, 0.9); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            padding: 40px; transform-style: preserve-3d; transition: transform 0.5s ease; position: relative; overflow: hidden;
+        }
+        .card:before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            transform: rotate(45deg); z-index: 0;
+        }
+        .inner-card { position: relative; z-index: 1; }
+        h2 { text-align: center; margin-bottom: 30px; color: #333; font-weight: 600; font-size: 28px; text-transform: uppercase; letter-spacing: 2px; }
+        .input-group { margin-bottom: 20px; position: relative; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; }
+        .input-group input {
+            width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; transition: all 0.3s;
+        }
+        .input-group input:focus { border-color: #667eea; box-shadow: 0 0 10px rgba(102,126,234,0.3); outline: none; }
+        .btn {
+            width: 100%; padding: 15px; background: linear-gradient(to right, #667eea, #764ba2);
+            border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: 600; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .btn:active { transform: translateY(0); }
+        .register-link { text-align: center; margin-top: 25px; color: #555; }
+        .register-link a { color: #667eea; text-decoration: none; font-weight: 600; }
+        .register-link a:hover { text-decoration: underline; }
+        .bg-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; transform-style: preserve-3d; }
+        .bg-element { position: absolute; background: rgba(255,255,255,0.12); border-radius: 50%; filter: blur(0.3px); }
+        @media (max-width: 480px) {
+            .container { padding: 10px; }
+            .card { padding: 25px; }
+            .input-group input { padding: 12px; }
+            .btn { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-elements"></div>
+
+    <div class="container">
+        <div class="card">
+            <div class="inner-card">
+                <div class="login-form">
+                    <h2>Login</h2>
+                    <form id="login-form">
+                        <div class="input-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" placeholder="Enter your username" required />
+                        </div>
+                        <div class="input-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                        </div>
+                        <button type="submit" class="btn" id="login-btn">Login</button>
+                    </form>
+                    <div class="register-link">
+                        Don't have an account? <a href="register.html">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Handle login submit (front-end demo only)
+        const loginForm = document.getElementById('login-form');
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value;
+            if (!u || !p) { alert('Please enter username and password'); return; }
+            // Demo redirect
+            window.location.href = 'dashboard.html';
+        });
+
+        // Create 3D background elements
+        const bgElements = document.querySelector('.bg-elements');
+        for (let i = 0; i < 15; i++) {
+            const el = document.createElement('div');
+            el.classList.add('bg-element');
+
+            const size = Math.random() * 100 + 20;
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const depth = Math.random() * 100 - 50;
+
+            el.style.width = `${size}px`;
+            el.style.height = `${size}px`;
+            el.style.left = `${posX}%`;
+            el.style.top = `${posY}%`;
+            el.style.transform = `translateZ(${depth}px)`;
+
+            bgElements.appendChild(el);
+        }
+    });
+    </script>
+</body>
+</html>
